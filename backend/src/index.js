@@ -15,7 +15,6 @@ app.get('/health', (_req, res) => {
 });
 
 // Mount stats route BEFORE the /:code wildcard to avoid conflicts
-app.use('/stats', require('./routes/links'));
 app.use('/', linksRouter);
 
 // Only start listening if this file is run directly (not during tests)
