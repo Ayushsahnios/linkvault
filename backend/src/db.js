@@ -1,19 +1,21 @@
-const Database = require('better-sqlite3');
-const path = require('path');
+const { Pool } = require('pg');
 
-const DB_PATH = process.env.DB_PATH || path.join(__dirname, '..', 'linkvault.db');
+const pool = new Pool({
+  connectionString: process.env.DB_CONNECTION_STRING,
+  ssl: { rejectUnauthorized: false },
+});
 
-const db = new Database(DB_PATH);
+const initDb = async () => {
+  await pool.query(`
+    CREATE TABLE IF NOT EXISTS links (
+      id          SERIAL PRIMARY KEY,
+      code        TEXT    NOT NULL UNIQUE,
+      original_url TEXT   NOT NULL,
+      clicks      INTEGER NOT NULL DEFAULT 0,
+      created_at  TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    )
+  `);
+  console.log('Database ready');
+};
 
-// Create table if it doesn't exist
-db.exec(`
-  CREATE TABLE IF NOT EXISTS links (
-    id          INTEGER PRIMARY KEY AUTOINCREMENT,
-    code        TEXT    NOT NULL UNIQUE,
-    original_url TEXT   NOT NULL,
-    clicks      INTEGER NOT NULL DEFAULT 0,
-    created_at  TEXT    NOT NULL DEFAULT (datetime('now'))
-  )
-`);
-
-module.exports = db;
+module.exports = { pool, initDb };
