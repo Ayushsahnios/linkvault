@@ -1,0 +1,15 @@
+version: '3.8'
+
+services:
+  api:
+    build: ./backend
+    ports:
+      - "3000:3000"
+    environment:
+      PORT: 3000
+      BASE_URL: http://localhost:3000
+      DB_PATH: ./linkvault.db
+    volumes:
+      - ./backend/src:/app/src   # live reload during dev
+
+  # We'll add Postgres + Redis here in Stage 3
