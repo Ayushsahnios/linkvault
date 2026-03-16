@@ -1,0 +1,5 @@
+aws_region           = "us-east-1"
+project              = "linkvault"
+environment          = "staging"
+db_connection_string = "postgresql://..."
+ecr_image_uri        = "891376978703.dkr.ecr.us-east-1.amazonaws.com/linkvault-api:latest"
