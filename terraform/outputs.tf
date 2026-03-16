@@ -1,26 +1,19 @@
-output "vpc_id" {
-  description = "VPC ID"
-  value       = module.vpc.vpc_id
+output "api_url" {
+  description = "API Gateway URL"
+  value       = aws_apigatewayv2_stage.default.invoke_url
 }
 
-output "ecs_cluster_name" {
-  description = "ECS cluster name"
-  value       = module.ecs.cluster_name
+output "lambda_function_name" {
+  description = "Lambda function name"
+  value       = aws_lambda_function.api.function_name
 }
 
-output "rds_endpoint" {
-  description = "RDS Postgres endpoint"
-  value       = module.rds.endpoint
-  sensitive   = true
+output "frontend_url" {
+  description = "CloudFront URL for the frontend"
+  value       = "https://${aws_cloudfront_distribution.frontend.domain_name}"
 }
 
-output "redis_endpoint" {
-  description = "ElastiCache Redis endpoint"
-  value       = module.redis.endpoint
-  sensitive   = true
-}
-
-output "ecr_repository_url" {
-  description = "ECR repository URL"
-  value       = "891376978703.dkr.ecr.us-east-1.amazonaws.com/linkvault-api"
+output "s3_bucket_name" {
+  description = "S3 bucket name for frontend deployments"
+  value       = aws_s3_bucket.frontend.bucket
 }

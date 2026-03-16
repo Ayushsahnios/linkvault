@@ -1,30 +1,23 @@
 variable "aws_region" {
-  description = "AWS region to deploy into"
+  description = "AWS region"
   type        = string
   default     = "us-east-1"
 }
 
 variable "project" {
-  description = "Project name used for tagging and naming resources"
+  description = "Project name"
   type        = string
   default     = "linkvault"
 }
 
 variable "environment" {
-  description = "Environment name (staging or production)"
+  description = "Environment name"
   type        = string
   default     = "staging"
 }
 
-variable "db_username" {
-  description = "Postgres database username"
-  type        = string
-  default     = "linkvault"
-  sensitive   = true
-}
-
-variable "db_password" {
-  description = "Postgres database password"
+variable "db_connection_string" {
+  description = "Neon Postgres connection string"
   type        = string
   sensitive   = true
 }
